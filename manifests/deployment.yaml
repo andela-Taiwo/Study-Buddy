@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: study-buddy-app
+  namespace: argocd
 spec:
   replicas: 2
   selector:
