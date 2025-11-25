@@ -4,7 +4,6 @@ pipeline {
         DOCKER_HUB_REPO = "andelataiwo/study-buddy"
         DOCKER_HUB_CREDENTIALS_ID = "${docker-token}"
         IMAGE_TAG = "v${BUILD_NUMBER}"
-        GIT_CREDENTIALS_ID = "${github-token}"
     }
     stages {
         stage('Checkout Github') {
