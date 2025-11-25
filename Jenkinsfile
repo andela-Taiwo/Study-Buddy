@@ -1,11 +1,11 @@
 pipeline {
     agent any
-    // environment {
-    //     DOCKER_HUB_REPO = "andelataiwo/studybuddy"
-    //     DOCKER_HUB_CREDENTIALS_ID = "${DockerHub-Token}"
-    //     IMAGE_TAG = "v${BUILD_NUMBER}"
-    //     GIT_CREDENTIALS_ID = "${github-token}"
-    // }
+    environment {
+        DOCKER_HUB_REPO = "andelataiwo/study-buddy"
+        DOCKER_HUB_CREDENTIALS_ID = "${docker-token}"
+        IMAGE_TAG = "v${BUILD_NUMBER}"
+        GIT_CREDENTIALS_ID = "${github-token}"
+    }
     stages {
         stage('Checkout Github') {
             steps {
@@ -13,24 +13,24 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/andela-Taiwo/Study-Buddy.git']])
             }
         }        
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             echo 'Building Docker image...'
-        //             dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
-        //         }
-        //     }
-        // }
-        // stage('Push Image to DockerHub') {
-        //     steps {
-        //         script {
-        //             echo 'Pushing Docker image to DockerHub...'
-        //             docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
-        //                 dockerImage.push("${IMAGE_TAG}")
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo 'Building Docker image...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
+                }
+            }
+        }
+        stage('Push Image to DockerHub') {
+            steps {
+                script {
+                    echo 'Pushing Docker image to DockerHub...'
+                    docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
+                        dockerImage.push("${IMAGE_TAG}")
+                    }
+                }
+            }
+        }
         // stage('Update Deployment YAML with New Tag') {
         //     steps {
         //         script {
