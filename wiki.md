@@ -324,8 +324,8 @@
 #### 🔃 Push Jenkinsfile to GitHub
 
 ```bash
-git config --global user.email "gyrogodnon@gmail.com"
-git config --global user.name "data-guru0"
+git config --global user.email "sokunbitaiwo82@gmail.com"
+git config --global user.name "andela-Taiwo"
 
 git add .
 git commit -m "commit"
@@ -333,7 +333,7 @@ git push origin main
 ```
 
 - When prompted:
-  - **Username**: `data-guru0`
+  - **Username**: `andela-Taiwo`
   - **Password**: GitHub token (paste, it's invisible)
 
 ---
@@ -377,7 +377,7 @@ git pull origin main
 #### 🐳 Create DockerHub Repository
 
 1. Go to [https://hub.docker.com](https://hub.docker.com)
-2. Create a new repository, e.g., `dataguru97/testing-9`
+2. Create a new repository, e.g., `username/testing-9`
 
 ---
 
