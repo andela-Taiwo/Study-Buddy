@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building Docker image...'
-                    dockerImage = docker.build("${DOCKER_HUB_REPO}:v9")
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
                 script {
                     echo 'Pushing Docker image to DockerHub...'
                     docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
-                        dockerImage.push("v9")
+                        dockerImage.push("${IMAGE_TAG}")
                         // dockerImage.push("v9")
                     }
                 }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    sed -i 's|image: andelataiwo/study-buddy:.*|image: andelataiwo/study-buddy:v9|' manifests/deployment.yaml
+                    sed -i 's|image: andelataiwo/study-buddy:.*|image: andelataiwo/study-buddy:${IMAGE_TAG}|' manifests/deployment.yaml
                     """
                 }
             }
