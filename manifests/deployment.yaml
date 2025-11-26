@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: study-buddy-app
-        image: andelataiwo/study-buddy:v15
+        image: andelataiwo/study-buddy:v16
         ports:
         - containerPort: 8501
         env:
