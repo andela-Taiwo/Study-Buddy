@@ -35,7 +35,7 @@ def main():
     if "rerun_trigger" not in st.session_state:
         st.session_state.rerun_trigger = False
 
-    st.title("Study Buddy AI")
+    st.title("Study Buddy AI Agent")
     st.sidebar.title("Quiz Settings")
 
     question_type = st.sidebar.selectbox(
