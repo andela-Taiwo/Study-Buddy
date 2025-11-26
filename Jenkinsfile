@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building Docker image...'
-                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:v9")
                 }
             }
         }
@@ -25,37 +25,37 @@ pipeline {
                 script {
                     echo 'Pushing Docker image to DockerHub...'
                     docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
-                        dockerImage.push("${IMAGE_TAG}")
-                        // dockerImage.push("latest")
+                        dockerImage.push("v9")
+                        // dockerImage.push("v9")
                     }
                 }
             }
         }
-        // stage('Update Deployment YAML with New Tag') {
-        //     steps {
-        //         script {
-        //             sh """
-        //             sed -i 's|image: andelataiwo/study-buddy:.*|image: andelataiwo/study-buddy:${IMAGE_TAG}|' manifests/deployment.yaml
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Update Deployment YAML with New Tag') {
+            steps {
+                script {
+                    sh """
+                    sed -i 's|image: andelataiwo/study-buddy:.*|image: andelataiwo/study-buddy:v9|' manifests/deployment.yaml
+                    """
+                }
+            }
+        }
 
-        // stage('Commit Updated YAML') {
-        //     steps {
-        //         script {
-        //             withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
-        //                 sh '''
-        //                 git config user.name "andela-Taiwo"
-        //                 git config user.email "sokunbitaiwo82@gmail.com"
-        //                 git add manifests/deployment.yaml
-        //                 git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
-        //                 git push https://${GIT_USER}:${GIT_PASS}@github.com/andela-Taiwo/Study-Buddy.git HEAD:main
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Commit Updated YAML') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                        sh '''
+                        git config user.name "andela-Taiwo"
+                        git config user.email "sokunbitaiwo82@gmail.com"
+                        git add manifests/deployment.yaml
+                        git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
+                        git push https://${GIT_USER}:${GIT_PASS}@github.com/andela-Taiwo/Study-Buddy.git HEAD:main
+                        '''
+                    }
+                }
+            }
+        }
         stage('Install Kubectl & ArgoCD CLI Setup') {
             steps {
                 sh '''
