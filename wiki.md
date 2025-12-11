@@ -515,7 +515,7 @@ kubectl get svc -n argocd
 Open a **new SSH terminal** and run:
 
 ```bash
-kubectl port-forward --address 0.0.0.0 service/argocd-server 31704:80 -n argocd
+kubectl port-forward --address 0.0.0.0 service/argocd-server 31979:80 -n argocd
 ```
 
 - Now open your browser

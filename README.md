@@ -155,3 +155,4 @@ docker run -p 8501:8501 --env GROQ_API_KEY=your-key study-buddy:local
 
 Happy studying! 🎓
 
+
